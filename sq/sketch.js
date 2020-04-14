@@ -1,14 +1,17 @@
 document.addEventListener("contextmenu", function(e){
 e.preventDefault();
 }, false);
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
 
 let sq = []
 
 function setup() {
-  createCanvas(800, 800);
-  for (let i = 0; i < 200; i++) {
-    sq.push(new Square(random(width/3, width - width/3), random(height/5, height - height/5)));
-  }
+  createCanvas(windowWidth, windowHeight);
+//  for (let i = 0; i < 200; i++) {
+//    sq.push(new Square(random(width/3, width - width/3), random(height/5, height - height/5)));
+//  }
 }
 
 function draw() {
@@ -33,7 +36,7 @@ function mousePressed() {
     for (let a of sq) {
       a.lock();
     }
-  } 
+  }
 }
 function mouseDragged() {
   if (mouseButton == LEFT) {
@@ -58,10 +61,10 @@ function mouseReleased() {
         sq[i].unlock();
   }
 }
-  
+
 
 class Square {
-  
+
   constructor(_x, _y) {
     this.x= _x;
     this.y= _y;
@@ -81,7 +84,7 @@ class Square {
   } else if (this.hovered()) {
       this.colStroke = color(255);
       this.colFill = color(255,255,255,50);
-    } else { 
+    } else {
       this.colStroke = color(255,255,255,50);
       this.colFill = color(0);
     }
@@ -89,7 +92,7 @@ class Square {
         stroke(this.colStroke);
         fill(this.colFill);
         rect(this.x, this.y, this.xSize, this.ySize);
-    }  
+    }
  hovered() {
     if (
       mouseX > this.x - this.xSize /2 &&
