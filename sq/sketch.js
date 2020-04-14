@@ -9,9 +9,9 @@ let sq = []
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-//  for (let i = 0; i < 200; i++) {
-//    sq.push(new Square(random(width/3, width - width/3), random(height/5, height - height/5)));
-//  }
+  for (let i = 0; i < 200; i++) {
+    sq.push(new Square(random(width/3, width - width/3), random(height/5, height - height/5)));
+  }
 }
 
 function draw() {
