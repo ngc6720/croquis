@@ -5,7 +5,7 @@ e.preventDefault();
 let sqs = [];
 let dimx = 6;
 let dimy = 5;
-var s = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
+var s = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -30,26 +30,26 @@ function setup() {
   for (let i = 0; i < 12; i++) {
     sqs[i].setColor(
       {
-        r : randomGaussian(106,15),
-        g : randomGaussian(217,15),
-        b : randomGaussian(33,15),
-        a : 180
+        r : randomGaussian(220,15),
+        g : randomGaussian(250,15),
+        b : randomGaussian(240,15),
+        a : 255
       })};
-  for (let i = 12; i < 23; i++) {
+  for (let i = 12; i < 24; i++) {
     sqs[i].setColor(
       {
-        r : randomGaussian(214,15),
-        g : randomGaussian(104,15),
-        b : randomGaussian(65,15),
-        a : 180
+        r : randomGaussian(255,15),
+        g : randomGaussian(40,15),
+        b : randomGaussian(40,15),
+        a : 200
       })};
-  for (let i = 23; i < 27; i++) {
+  for (let i = 24; i < 30; i++) {
     sqs[i].setColor(
       {
-        r : randomGaussian(85,15),
-        g : randomGaussian(96,15),
-        b : randomGaussian(217,15),
-        a : 180
+        r : randomGaussian(105,15),
+        g : randomGaussian(120,15),
+        b : randomGaussian(170,15),
+        a : 200
       })};
 
   s[0] = new Tone.Player("./media/samples/p1s01.wav").toMaster();
@@ -75,10 +75,13 @@ function setup() {
   s[20] = new Tone.Player("./media/samples/p2s09.wav").toMaster();
   s[21] = new Tone.Player("./media/samples/p2s10.wav").toMaster();
   s[22] = new Tone.Player("./media/samples/p2s11.wav").toMaster();
-  s[23] = new Tone.Player("./media/samples/p3s01.wav").toMaster();
-  s[24] = new Tone.Player("./media/samples/p3s02.wav").toMaster();
-  s[25] = new Tone.Player("./media/samples/p3s03.wav").toMaster();
-  s[26] = new Tone.Player("./media/samples/p3s04.wav").toMaster();
+  s[23] = new Tone.Player("./media/samples/p2s12.wav").toMaster();
+  s[24] = new Tone.Player("./media/samples/p3s01.wav").toMaster();
+  s[25] = new Tone.Player("./media/samples/p3s02.wav").toMaster();
+  s[26] = new Tone.Player("./media/samples/p3s03.wav").toMaster();
+  s[27] = new Tone.Player("./media/samples/p3s04.wav").toMaster();
+  s[28] = new Tone.Player("./media/samples/p3s05.wav").toMaster();
+  s[29] = new Tone.Player("./media/samples/p3s06.wav").toMaster();
 }
 
 function draw() {
@@ -187,13 +190,24 @@ function sel(i) {
     case 26:
       s[26].start();
       break;
+    case 27:
+      s[27].start();
+      break;
+    case 28:
+      s[28].start();
+      break;
+    case 29:
+      s[29].start();
+      break;
   }
 
 }
 
 function stopNappe() {
-  s[23].stop();
   s[24].stop();
   s[25].stop();
   s[26].stop();
+  s[27].stop();
+  s[28].stop();
+  s[29].stop();
 }

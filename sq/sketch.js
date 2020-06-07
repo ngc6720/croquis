@@ -3,10 +3,7 @@ e.preventDefault();
 }, false);
 
 let sqs = [];
-let _mouse;
 let sel = [];
-let synth;
-let player;
 let ready = false
 let overbg = true;
 let selecting = false;
