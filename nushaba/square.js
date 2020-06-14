@@ -18,6 +18,7 @@ class Square {
     this.hovered = false;
     this.locked = false;
     this.selected = false;
+    this.redy = false;
   }
 
 
@@ -32,7 +33,7 @@ class Square {
 
   hover() {
     if (
-      !selecting &&
+      //!selecting &&
       mouseX > this.pos.x -this.size.x/2 &&
       mouseX < this.pos.x +this.size.x/2 &&
       mouseY > this.pos.y -this.size.y/2 &&
@@ -98,10 +99,16 @@ class Square {
       this.color.stroke.setAlpha(100);
       this.color.fill.setAlpha(0);
     } else if (this.hovered) {
-      this.color.stroke.setAlpha(100);
+      this.color.stroke.setAlpha(200);
     } else {
       this.color.fill.setAlpha(this._color.a);
       this.color.stroke.setAlpha(0);
+    }
+  }
+
+  readiness() {
+    if (!this.hovered){
+      this.redy = true;
     }
   }
 }

@@ -5,7 +5,7 @@ e.preventDefault();
 let sqs = [];
 let dimx = 6;
 let dimy = 5;
-var s = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
+var s = [];
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -51,37 +51,18 @@ function setup() {
         b : randomGaussian(170,15),
         a : 200
       })};
-
-  s[0] = new Tone.Player("./media/samples/p1s01.wav").toMaster();
-  s[1] = new Tone.Player("./media/samples/p1s02.wav").toMaster();
-  s[2] = new Tone.Player("./media/samples/p1s03.wav").toMaster();
-  s[3] = new Tone.Player("./media/samples/p1s04.wav").toMaster();
-  s[4] = new Tone.Player("./media/samples/p1s05.wav").toMaster();
-  s[5] = new Tone.Player("./media/samples/p1s06.wav").toMaster();
-  s[6] = new Tone.Player("./media/samples/p1s07.wav").toMaster();
-  s[7] = new Tone.Player("./media/samples/p1s08.wav").toMaster();
-  s[8] = new Tone.Player("./media/samples/p1s09.wav").toMaster();
-  s[9] = new Tone.Player("./media/samples/p1s10.wav").toMaster();
-  s[10] = new Tone.Player("./media/samples/p1s11.wav").toMaster();
-  s[11] = new Tone.Player("./media/samples/p1s12.wav").toMaster();
-  s[12] = new Tone.Player("./media/samples/p2s01.wav").toMaster();
-  s[13] = new Tone.Player("./media/samples/p2s02.wav").toMaster();
-  s[14] = new Tone.Player("./media/samples/p2s03.wav").toMaster();
-  s[15] = new Tone.Player("./media/samples/p2s04.wav").toMaster();
-  s[16] = new Tone.Player("./media/samples/p2s05.wav").toMaster();
-  s[17] = new Tone.Player("./media/samples/p2s06.wav").toMaster();
-  s[18] = new Tone.Player("./media/samples/p2s07.wav").toMaster();
-  s[19] = new Tone.Player("./media/samples/p2s08.wav").toMaster();
-  s[20] = new Tone.Player("./media/samples/p2s09.wav").toMaster();
-  s[21] = new Tone.Player("./media/samples/p2s10.wav").toMaster();
-  s[22] = new Tone.Player("./media/samples/p2s11.wav").toMaster();
-  s[23] = new Tone.Player("./media/samples/p2s12.wav").toMaster();
-  s[24] = new Tone.Player("./media/samples/p3s01.wav").toMaster();
-  s[25] = new Tone.Player("./media/samples/p3s02.wav").toMaster();
-  s[26] = new Tone.Player("./media/samples/p3s03.wav").toMaster();
-  s[27] = new Tone.Player("./media/samples/p3s04.wav").toMaster();
-  s[28] = new Tone.Player("./media/samples/p3s05.wav").toMaster();
-  s[29] = new Tone.Player("./media/samples/p3s06.wav").toMaster();
+  for (let i = 0; i < 12; i++) {
+    let index = i + 1;
+      s.push(new Tone.Player("./media/p1s"+index+".wav").toMaster());
+  }
+  for (let i = 0; i < 12; i++) {
+    let index = i + 1;
+      s.push(new Tone.Player("./media/p2s"+index+".wav").toMaster());
+  }
+  for (let i = 0; i < 6; i++) {
+    let index = i + 1;
+      s.push(new Tone.Player("./media/p3s"+index+".wav").toMaster());
+  }
 }
 
 function draw() {
@@ -93,7 +74,6 @@ function draw() {
   }
 }
 
-
 function mousePressed() {
   for (let i = 0; i < sqs.length; i++) {
     sqs[i].hover();
@@ -101,106 +81,9 @@ function mousePressed() {
       sqs[i].clicked = true;
       setTimeout(()=>{sqs[i].clicked = false;}, 80);
       stopNappe();
-      sel(i);
+      s[i].start();
     }
   }
-}
-
-function sel(i) {
-  switch (i) {
-
-    case 0:
-      s[0].start();
-      break;
-    case 1:
-      s[1].start();
-      break;
-    case 2:
-      s[2].start();
-      break;
-    case 3:
-      s[3].start();
-      break;
-    case 4:
-      s[4].start();
-      break;
-    case 5:
-      s[5].start();
-      break;
-    case 6:
-      s[6].start();
-      break;
-    case 7:
-      s[7].start();
-      break;
-    case 8:
-      s[8].start();
-      break;
-    case 9:
-      s[9].start();
-      break;
-    case 10:
-      s[10].start();
-      break;
-    case 11:
-      s[11].start();
-      break;
-    case 12:
-      s[12].start();
-      break;
-    case 13:
-      s[13].start();
-      break;
-    case 14:
-      s[14].start();
-      break;
-    case 15:
-      s[15].start();
-      break;
-    case 16:
-      s[16].start();
-      break;
-    case 17:
-      s[17].start();
-      break;
-    case 18:
-      s[18].start();
-      break;
-    case 19:
-      s[19].start();
-      break;
-    case 20:
-      s[20].start();
-      break;
-    case 21:
-      s[21].start();
-      break;
-    case 22:
-      s[22].start();
-      break;
-    case 23:
-      s[23].start();
-      break;
-    case 24:
-      s[24].start();
-      break;
-    case 25:
-      s[25].start();
-      break;
-    case 26:
-      s[26].start();
-      break;
-    case 27:
-      s[27].start();
-      break;
-    case 28:
-      s[28].start();
-      break;
-    case 29:
-      s[29].start();
-      break;
-  }
-
 }
 
 function stopNappe() {
