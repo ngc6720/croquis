@@ -17,8 +17,9 @@ function setup() {
     let id = i + 1;
     fx1.push(new Tone.Chebyshev(20).toMaster());
     fx2.push(new Tone.Volume(20).connect(fx1[i]));
-    s.push(new Tone.Player("./media/p3s"+id+".wav").connect(fx2[i]));
+    s.push(new Tone.Player("./media/p3s"+id+".wav",function(){pts[i].loaded=true}).connect(fx2[i]));
   }
+
   for (let a of s) {a.loop = true; a.fadeIn = 0.2; a.fadeOut = 0.2;}
   for (let i = 0; i < 6; i++) {
     pts.push(new Point(random(width/12, width - width/12), random(height/12, height - height/12)));
@@ -52,26 +53,28 @@ function draw() {
 }
 
 function mousePressed() {
-  if (mouseButton === RIGHT) {
-    if (overbg) {
-      crs.push(new Curse(mouseX, mouseY));
-    } else {
-      deleting = true;
-      for (let i = crs.length-1; i >= 0; i--) {
-        if (crs[i].hovered) {
-          crs.splice(i,1);
+  if (loading()) {
+    if (mouseButton === RIGHT) {
+      if (overbg) {
+        crs.push(new Curse(mouseX, mouseY));
+      } else {
+        deleting = true;
+        for (let i = crs.length-1; i >= 0; i--) {
+          if (crs[i].hovered) {
+            crs.splice(i,1);
+          }
         }
       }
     }
-  }
-  if (mouseButton == LEFT) {
-    //console.log("curse: "+ crs.length);
-    if (!overbg) {
-      for (let a of pts) {
-        a.lock();
-      }
-      for (let b of crs) {
-        b.lock();
+    if (mouseButton == LEFT) {
+      //console.log("curse: "+ crs.length);
+      if (!overbg) {
+        for (let a of pts) {
+          a.lock();
+        }
+        for (let b of crs) {
+          b.lock();
+        }
       }
     }
   }
@@ -136,4 +139,10 @@ function fxAmount() {
     fx2[i].volume.value = pts[i].curses / 2;
     //fx[i].wet.value = 1;
   }
+}
+
+function loading() {
+  if (pts.every((elt) => elt.loaded === true)) {
+    return true;
+  } else {return false;}
 }

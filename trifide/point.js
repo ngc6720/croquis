@@ -18,7 +18,6 @@ class Point {
     this.offset;
     this.hovered = false;
     this.locked = false;
-    this.inScope = false;
     this.vol = -60;
     this.redy = true;
     this.active = false;
@@ -26,6 +25,7 @@ class Point {
     this.moy = 0;
     this.sum = 0;
     this.weightSum = 0;
+    this.loaded = false;
   }
 
 

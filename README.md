@@ -2,7 +2,7 @@
 
 ## [soundboard](https://ngc6720.github.io/croquis/soundboard/)
 
-## [nushaba](https://ngc6720.github.io/croquis/sq/)
+## [nushaba](https://ngc6720.github.io/croquis/nushaba/)
 ###### left click : select/drag shapes
 ###### right click : generate/delete shapes
 ###### click + drag : play sounds
