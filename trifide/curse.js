@@ -5,8 +5,8 @@ class Curse {
     this.vel = createVector(0,0);
     this.r = 10;
     this.color = {
-      stroke : color(0),
-      fill : color(0)
+      stroke : color(255),
+      fill : color(255)
     };
     this.offset;
     this.hovered = false;

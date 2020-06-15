@@ -1,16 +1,11 @@
 class Point {
 
-  constructor(_x,_y) {
+  constructor(_x,_y,_color) {
     this.pos = createVector(_x,_y);
     this.vel = createVector(0,0);
     this.r = 15;
     this.scope = 250;
-    this._color = {
-      r : random(255),
-      g : random(255),
-      b : random(255),
-      a : 40
-    };
+    this._color = _color;
     this.color = {
       stroke : color(this._color.r,this._color.g,this._color.b,this._color.a),
       fill : color(this._color.r,this._color.g,this._color.b,this._color.a)
@@ -36,8 +31,8 @@ class Point {
     fill(this.color.fill);
     point(this.pos.x, this.pos.y);
     strokeWeight(1);
-    stroke(this._color.r,this._color.g,this._color.b,10);
-    fill(this._color.r,this._color.g,this._color.b,10);
+    stroke(this._color.r,this._color.g,this._color.b,25);
+    fill(this._color.r,this._color.g,this._color.b,25);
     ellipse(this.pos.x, this.pos.y, this.scope*2)
   }
 
@@ -79,7 +74,7 @@ class Point {
       }
     } else {
       this.color.fill.setAlpha(this._color.a);
-      this.color.stroke.setAlpha(255);
+      this.color.stroke.setAlpha(this._color.a);
     }
   }
 
@@ -103,7 +98,7 @@ class Point {
     if (crsInScope.length > 0) {
       for (let i = 0; i < crsInScope.length; i++) {
         strokeWeight(1);
-        stroke(0);
+        stroke(255);
         line(this.pos.x,this.pos.y,crsInScope[i].pos.x,crsInScope[i].pos.y);
         let weight = map(p5.Vector.dist(this.pos, crsInScope[i].pos),0,this.scope,1,0);
         let quant = (p5.Vector.dist(this.pos, crsInScope[i].pos) * weight);

@@ -85,7 +85,7 @@ function mouseDragged() {
       }
     };
   }
-  if (keyIsPressed === true && keyCode === CONTROL) {
+  if (keyIsPressed === true && keyCode === SHIFT) {
     for (let i = sqs.length-1; i >= 0; i--) {
       sqs[i].hover();
       sqs[i].readiness();

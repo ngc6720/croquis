@@ -1,6 +1,14 @@
-document.addEventListener("contextmenu", function(e){
+document.addEventListener("contextmenu", e => {
 e.preventDefault();
 }, false);
+
+document.addEventListener("keydown", e => {
+  if (e.keyCode === 67) {
+    if (keyIsDown(SHIFT)) {
+    initialize();
+    }
+  }
+});
 
 let pts = [];
 let crs = [];
@@ -10,6 +18,12 @@ let dragging;
 let s = [];
 let fx1 = [];
 let fx2 = [];
+let colors = [{r:248,g:26,b:12,a:255},
+{r:240,g:200,b:50,a:255},
+{r:210,g:165,b:255,a:255},
+{r:160,g:190,b:255,a:255},
+{r:250,g:200,b:240,a:255},
+{r:248,g:154,b:12,a:255}];
 
 function setup() {
   createCanvas(800,800);
@@ -22,12 +36,16 @@ function setup() {
 
   for (let a of s) {a.loop = true; a.fadeIn = 0.2; a.fadeOut = 0.2;}
   for (let i = 0; i < 6; i++) {
-    pts.push(new Point(random(width/12, width - width/12), random(height/12, height - height/12)));
+    pts.push(new Point(
+      random(width/12,width-width/12),
+      random(height/12,height-height/12),
+      colors[i]
+    ));
   }
 }
 
 function draw() {
-  background(250);
+  background(0);
   //mouse either over background or over some obj
   if (pts.some((elt) => elt.hovered === true) || crs.some((elt) => elt.hovered === true)) {
     overbg = false;
@@ -145,4 +163,15 @@ function loading() {
   if (pts.every((elt) => elt.loaded === true)) {
     return true;
   } else {return false;}
+}
+
+function initialize() {
+  crs.splice(0,crs.length);
+  let center = createVector(width/2,height/2);
+  let vec = createVector(width/5,height/5);
+  for (let i = 0; i < pts.length; i++) {
+    pts[i].pos.set(p5.Vector.add(center, vec));
+    vec.rotate(pts.length/PI);
+  }
+  console.log("initialized");
 }
