@@ -9,58 +9,46 @@ class Curse {
       fill : color(255)
     };
     this.offset;
-    this.hovered = false;
-    this.locked = false;
+    this.isLocked = false;
   }
 
-
-  display() {
-    strokeWeight(this.r*2);
-    this.colorSelec();
-    stroke(this.color.stroke);
-    fill(this.color.fill);
-    point(this.pos.x, this.pos.y);
-  }
-
-  hover() {
+  isHovered() {
     let dx = mouseX - this.pos.x;
     let dy = mouseY - this.pos.y;
     if (
       dx*dx + dy*dy < this.r*this.r
     ) {
-      this.hovered = true;
-    } else {
-      this.hovered = false;
-    }
+      return true;
+    } else {return false;}
   }
 
   lock() {
-    if (this.hovered) {
+    if (this.isHovered()) {
       let mouse = createVector(mouseX,mouseY);
       this.offset = p5.Vector.sub(mouse, this.pos);
-      this.locked = true;
-    } else if (this.selected) {
-      let mouse = createVector(mouseX,mouseY);
-      this.offset = p5.Vector.sub(mouse, this.pos);
-      this.locked = true;
+      this.isLocked = true;
     } else {
-      this.locked = false;
+      this.isLocked = false;
     }
   }
 
   drag() {
-    if (this.locked){
+    if (this.isLocked){
       let mouse = createVector(mouseX,mouseY);
       this.pos.set(p5.Vector.sub(mouse, this.offset));
     }
   }
 
-  colorSelec() {
-    if (this.hovered) {
+  display() {
+    if (this.isHovered() || this.isLocked) {
       this.color.stroke.setAlpha(100);
     } else {
-      this.color.fill.setAlpha(200);
+      this.color.fill.setAlpha(255);
       this.color.stroke.setAlpha(255);
     }
+    strokeWeight(this.r*2);
+    stroke(this.color.stroke);
+    fill(this.color.fill);
+    point(this.pos.x, this.pos.y);
   }
 }
