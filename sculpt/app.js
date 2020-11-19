@@ -76,17 +76,21 @@ const clearRotation = function() {
     document.removeEventListener("mouseup", clearRotation);
 }
 
-const rotateRight = function() {
-    tempInt = setInterval(function() {
-        scene.rotation.y -= 0.1;
-    }, 50)
-    document.addEventListener("mouseup", clearRotation);
+const rotateRight = function(e) {
+    if (e.button === 0) {
+        tempInt = setInterval(function() {
+            scene.rotation.y -= 0.1;
+        }, 50)
+        document.addEventListener("mouseup", clearRotation);
+    }
 }
-const rotateLeft = function() {
-    tempInt = setInterval(function() {
-        scene.rotation.y += 0.1;
-    }, 50)
-    document.addEventListener("mouseup", clearRotation);
+const rotateLeft = function(e) {
+    if (e.button === 0) {
+        tempInt = setInterval(function() {
+            scene.rotation.y += 0.1;
+        }, 50)
+        document.addEventListener("mouseup", clearRotation);
+    }
 }
 
 let btnleft = document.getElementById("left");
