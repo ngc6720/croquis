@@ -1,6 +1,8 @@
 :root {
     --darkgrey: rgb(85, 85, 85);
     --red: rgb(170, 6, 33);
+    --green: rgb(24, 77, 0);
+    --blue: rgb(0, 29, 90);
   }
   
 body {margin: 0;}
@@ -23,7 +25,7 @@ canvas {display: block;}
     fill: var(--darkgrey);
 }
 .ui:hover {
-    fill: var(--red);
+    fill: var(--blue);
 }
 
 @media screen and (max-width: 940px) {
