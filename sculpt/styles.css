@@ -2,8 +2,8 @@
     --ui: #F4E04B;
     --ui_light: #998e3e;
     --darkgrey: #363636;
-    --grey: #7e7e7e;
-    --lightgrey: #969696;
+    --grey: #858585;
+    --lightgrey: #979797;
   }
   
 body {
@@ -26,14 +26,12 @@ canvas {display: block;}
 
 .caption {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.02em;
+    font-size: 16px;
     position: absolute;
     left: 2vh;
     bottom: 0;
     margin: 24px 16px;
-    color: var(--darkgrey);
-    color: rgb(0, 0, 0);
+    color: black;
 }
 
 .buttons {
@@ -118,12 +116,19 @@ canvas {display: block;}
         margin:8px;
     }
     .arrow svg {
-        width: 12vh;
+        width: 8vh;
     }
 }
 
 @media screen and (max-width: 940px) {
-    .arrow svg {
-        width: 8vh;
+    .material,.sound {
+        margin:16px;
+        margin-left:0;
+    }
+    .buttons {
+        right:0;
+    }
+    .caption {
+        font-size: 16px;
     }
 }

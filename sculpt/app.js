@@ -62,13 +62,8 @@ materials[0] = new THREE.MeshLambertMaterial({color: 0xdddddd});
 materials[1] = new THREE.MeshPhongMaterial({color: 0x000000, specular: 0x222222, shininess: 50, flatShading : THREE.FlatShading}); 
 materials[2] = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe : true});
 
-// MODEL
 
-function loadModel(url) {
-    return new Promise(resolve => {
-        new GLTFLoader().load(url, resolve);
-    });
-}
+// INIT
 
 let models = [];
 let p1 = loadModel('models/maquette0.glb').then(gltf => {models[0] = gltf.scene;});
@@ -81,22 +76,22 @@ Promise.all([p1,p2]).then(() => {
         switchMaterial(materials[0]);
         addShadows(a);
     }
-
+    
     models[0].caption = "Maquette 0"
     models[1].caption = "Variation 1"
-
+    
     addModel(models[0]);
     updateCaption(models[0].caption)
-
+    
     scene.rotation.y = -2;
     scene.rotation.x = 0.08;
-
+    
     animate();
     generateInterface();
 });
 
 
-// RENDERING
+// LOOP
 
 function animate() {   
     requestAnimationFrame(animate);
@@ -110,13 +105,11 @@ function render() {
 
 // INPUTS
 
-function onWindowResize() {
+window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-}
-
-window.addEventListener( 'resize', onWindowResize, false );
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}, false);
 
 const bindOrbit = () => {
     let OFFSET;
@@ -137,18 +130,18 @@ const bindOrbit = () => {
 const bindArrows = () => {
     interfaces.arrows = [];
     [-1, 1].forEach((el, i) => {
-     interfaces.arrows[i] = new Interface(ui.arrows[i]).down = () => {
-        let current = models.find(model => model.isDisplayed);
-        let next = models.carousel(models.indexOf(current) + el);
-        removeModel(current);
-        addModel(next);
-        updateCaption(next.caption);
+        interfaces.arrows[i] = new Interface(ui.arrows[i]).down = () => {
+            let current = models.find(model => model.isDisplayed);
+            let next = models.carousel(models.indexOf(current) + el);
+            removeModel(current);
+            addModel(next);
+            updateCaption(next.caption);
         };
     });
 }
 
 const bindMaterial = () => {
-     interfaces.material = new Interface(ui.material).down = () => {
+    interfaces.material = new Interface(ui.material).down = () => {
         let current = materials.find(material => material.isDisplayed);
         let next = materials.carousel(materials.indexOf(current) + 1);
         switchMaterial(next);
@@ -159,7 +152,7 @@ const bindSound = () => {
     interfaces.sound = new Interface(ui.sound).down = () => {
         ui.sound.classList.toggle("playing");
         sample.paused ? (sample.play()) : sample.pause(), sample.currentTime = 0;
-   };
+    };
 }
 
 
@@ -175,6 +168,12 @@ sample.addEventListener('canplay', function showSndBtn() {
 
 
 // FUNCTIONS
+
+function loadModel(url) {
+    return new Promise(resolve => {
+        new GLTFLoader().load(url, resolve);
+    });
+}
 
 function generateInterface() {
     bindInterface();
@@ -240,5 +239,5 @@ THREE.Material.prototype.isDisplayed = false;
 
 document.addEventListener("contextmenu", e => {
     e.preventDefault();
-    }, false);
+}, false);
     
