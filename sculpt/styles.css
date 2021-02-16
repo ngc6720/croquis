@@ -1,16 +1,93 @@
 :root {
-    --darkgrey: rgb(85, 85, 85);
-    --red: rgb(170, 6, 33);
-    --green: rgb(24, 77, 0);
-    --blue: rgb(0, 29, 90);
+    --ui: #F4E04B;
+    --ui_light: #998e3e;
+    --darkgrey: #363636;
+    --grey: #7e7e7e;
+    --lightgrey: #969696;
+
   }
   
-body {margin: 0;}
+body {
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 canvas {display: block;}
 
-.ui-wrap{
+.interface {
+    display: none;
+}
+
+.caption {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    position: absolute;
+    left: 2%;
+    bottom: 0;
+    margin: 24px 16px;
+    color: var(--darkgrey);
+    color: rgb(0, 0, 0);
+}
+
+.buttons {
+    display: flex;
     position: absolute;
     display:flex;
+    top: 0;
+    right: 4%;
+    justify-content: flex-end;
+    margin: auto;
+}
+
+.material, .sound {
+    z-index: 3;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    justify-self: flex-end;
+    margin: 24px 16px;
+    cursor: pointer;
+}
+
+.material:hover svg {
+    stroke:var(--ui_light);
+}
+.sound:hover svg {
+    fill:var(--ui_light);
+}
+.sound {
+    display: none;
+}
+
+.material svg {
+    stroke: var(--ui);
+}
+.sound svg{
+    fill: var(--ui);
+}
+.sound.playing > .line {
+    margin-left: 44px;
+}
+
+.line{
+    width: 12px;
+    height: 28px;
+    border-bottom: 2px solid var(--ui);
+    position: absolute;
+    margin-left: 29px;
+    transition: margin-left 200ms;
+}
+
+.arrow-wrap{
+    position: absolute;
     display:flex;
     top: 0;
     bottom:0;
@@ -18,19 +95,40 @@ canvas {display: block;}
     justify-content: space-between;
     align-items: center;
 }
-.ui {
-    cursor: pointer;
+
+.arrow {
+    z-index: 3;
     padding: 8px;
-    margin:36px;
-    fill: var(--darkgrey);
+    margin:2%;
+    fill: var(--ui);
+    fill: var(--grey);
 }
-.ui:hover {
-    fill: var(--blue);
+.arrow svg {
+    width: 6vh;
+}
+
+.arrow:hover, .arrow:active  {
+    fill: var(--ui_light);
+    fill: var(--lightgrey);
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 1080px) {
+    .arrow-wrap {
+        align-items: flex-end;
+        justify-content:flex-end;
+    }
+    .arrow {
+        margin:8px;
+    }
+    .arrow svg {
+        width: 12vh;
+    }
 }
 
 @media screen and (max-width: 940px) {
-    .ui-wrap {
-        align-items: end;
-        justify-content:end;
+    .arrow svg {
+        width: 8vh;
     }
 }
