@@ -74,7 +74,7 @@ canvas {display: block;}
     margin-left: 44px;
 }
 
-.line{
+.line {
     width: 12px;
     height: 28px;
     border-bottom: 2px solid var(--ui);
