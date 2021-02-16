@@ -25,7 +25,6 @@ canvas {display: block;}
 }
 
 .caption {
-    display: flex;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 18px;
     letter-spacing: 0.02em;
@@ -46,7 +45,6 @@ canvas {display: block;}
 }
 
 .material, .sound {
-    display: flex;
     z-index: 3;
     width: 64px;
     height: 64px;
