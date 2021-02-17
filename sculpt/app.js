@@ -50,7 +50,7 @@ dirLight1.position.set(-3, 5, -10);
 dirLight1.castShadow = true;
 scene.add(dirLight1);
 
-const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.8);
+const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
 dirLight2.position.set(3, 5, 18);
 scene.add(dirLight2);
 
@@ -58,7 +58,7 @@ scene.add(dirLight2);
 let materials = [];
 
 materials[0] = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe : true});
-materials[1] = new THREE.MeshLambertMaterial({color: 0xdddddd}); 
+materials[1] = new THREE.MeshLambertMaterial({color: 0xfffffe}); 
 materials[2] = new THREE.MeshPhongMaterial({color: 0x040404, specular: 0x222222, shininess: 20, flatShading : THREE.FlatShading}); 
 materials[3] = new THREE.MeshNormalMaterial();
 
@@ -69,7 +69,7 @@ let models = [];
 
 let captions = [
     "model_0 : Version 0", 
-    "model_1 : Variation 1"
+    "model_1 : Variation 1",
 ];
 
 let promises = [
@@ -100,7 +100,7 @@ function init() {
         addShadows(models[i]);
     }
     
-    switchMaterial(materials[1]); 
+    switchMaterial(materials[1]);
     addModel(models[0]);
     updateCaption(models[0].caption)
     
