@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: "Space Gro";
-    src: url(/SpaceGrotesk.woff2) format("woff2");
+    src: url(./SpaceGrotesk.woff2) format("woff2");
 }
 
 body {
