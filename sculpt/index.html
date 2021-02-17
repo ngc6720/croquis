@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 	
 	<head>
@@ -6,19 +7,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<style type="text/css"></style>
-    	<title>sculpt</title>
+    	<title>▱</title>
   	</head>
   
-	<body>
-		
-		<div id="cnv-wrap">
-			<div id="cnv"></div>
+	  <body>
+
+		<div class="loading" style="background-color:#949597; position:fixed; top:0; left:0; width:100%; height:100%; z-index:100;">
+			<div class="progress" style="border-top:4px solid var(--ui); width: 0; height:0; transition: width 250ms"></div>
 		</div>
+
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.min.js"></script> -->
 		<script type="text/javascript" src="interface.js"></script>
 		<script type="module" src="app.js"></script>
 		<script type="text/javascript" src="app.js"></script>
 
+		<div id="cnv-wrap">
+			<div id="cnv"></div>
+		</div>
+		
 		<div class="interface">
 			<div class="caption"></div>
 			<div class="buttons">
@@ -27,17 +33,17 @@
 						<path d="M32.9836 28.3686L53.2791 40.2798L32.9836 52.1911C32.9345 52.2199 32.8079 52.2632 32.6273 52.2632C32.4468 52.2632 32.3202 52.2199 32.2711 52.1911L11.9756 40.2798L32.2711 28.3686C32.3202 28.3398 32.4468 28.2965 32.6273 28.2965C32.8079 28.2965 32.9345 28.3398 32.9836 28.3686Z" stroke-width="2"/>
 						<path d="M32.9836 20.3686L53.2791 32.2798L32.9836 44.1911C32.9345 44.2199 32.8079 44.2632 32.6273 44.2632C32.4468 44.2632 32.3202 44.2199 32.2711 44.1911L11.9756 32.2798L32.2711 20.3686C32.3202 20.3398 32.4468 20.2965 32.6273 20.2965C32.8079 20.2965 32.9345 20.3398 32.9836 20.3686Z" stroke-width="2"/>
 						<path d="M32.9836 12.3686L53.2791 24.2798L32.9836 36.1911C32.9345 36.2199 32.8079 36.2632 32.6273 36.2632C32.4468 36.2632 32.3202 36.2199 32.2711 36.1911L11.9756 24.2798L32.2711 12.3686C32.3202 12.3398 32.4468 12.2965 32.6273 12.2965C32.8079 12.2965 32.9345 12.3398 32.9836 12.3686Z" stroke-width="2"/>
-					  </svg>
+					</svg>
 				</div>
 				<div class="sound">
 					<div class="line"></div>
 					<svg width="64" height="auto" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
 						<path d="M34.0311 46H36.0311V17.875L39.0311 19V17.125L36.0311 16H34.0311V46Z"/>
 						<path d="M24.031 44L28.0312 37L34.9593 41L31.031 48L24.031 44Z"/>
-					  </svg>
+					</svg>
 				</div>
 			</div>
-	
+			
 			<div class="arrow-wrap">
 				<div class="arrow">
 					<svg width="64" height="auto" viewBox="0 0 14 24">
@@ -52,6 +58,9 @@
 			</div>
 			<div class="orbit" style="position:absolute; top: 0; bottom:0; width:100%;"></div>
 		</div>
-	</body>
-</html>
 
+	</body>
+
+	</html>
+	
+	

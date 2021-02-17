@@ -5,6 +5,7 @@ import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js
 // SETUP
 
 const cnv = document.getElementById('cnv');
+
 const ui = {
     caption: document.querySelector(".caption"),
     orbit: document.querySelector(".orbit"),
@@ -12,13 +13,14 @@ const ui = {
     material: document.querySelector(".material"),
     sound: document.querySelector(".sound"),
 }
+
 const interfaces = {};
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color( 0xa0a0a0 );
+scene.background = new THREE.Color(0xa0a0a0);
 scene.fog = new THREE.Fog( 0xa0a0a0, 10, 50 );
 
-const camera = new THREE.PerspectiveCamera(20   , window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 12;
 camera.position.y = 0.6;
 
@@ -46,40 +48,59 @@ scene.add(hemiLight);
 const dirLight1 = new THREE.DirectionalLight(0xDDF0FC, 0.5);
 dirLight1.position.set(-3, 5, -10);
 dirLight1.castShadow = true;
-dirLight1.shadow.camera.far = 500;
-dirLight1.shadow.mapSize.width = 1024;
 scene.add(dirLight1);
 
-const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
-dirLight2.position.set(3, 5, 10);
-dirLight2.castShadow = false;
-dirLight2.shadow.camera.far = -500;
+const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.8);
+dirLight2.position.set(3, 5, 18);
 scene.add(dirLight2);
+
 
 let materials = [];
 
-materials[0] = new THREE.MeshLambertMaterial({color: 0xdddddd}); 
-materials[1] = new THREE.MeshPhongMaterial({color: 0x000000, specular: 0x222222, shininess: 50, flatShading : THREE.FlatShading}); 
-materials[2] = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe : true});
+materials[0] = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe : true});
+materials[1] = new THREE.MeshLambertMaterial({color: 0xdddddd}); 
+materials[2] = new THREE.MeshPhongMaterial({color: 0x040404, specular: 0x222222, shininess: 20, flatShading : THREE.FlatShading}); 
+materials[3] = new THREE.MeshNormalMaterial();
 
 
 // INIT
 
 let models = [];
-let p1 = loadModel('models/maquette0.glb').then(gltf => {models[0] = gltf.scene;});
-let p2 = loadModel('models/maquette1.glb').then(gltf => {models[1] = gltf.scene;});
 
-Promise.all([p1,p2]).then(() => {
-    
-    for (let a of models) {
-        a.name = "maquette"
-        switchMaterial(materials[0]);
-        addShadows(a);
+let captions = [
+    "model_0 : Version 0", 
+    "model_1 : Variation 1"
+];
+
+let promises = [
+    loadModel('models/model_0.glb').then(gltf => {models[0] = gltf.scene;}),
+    loadModel('models/model_1.glb').then(gltf => {models[1] = gltf.scene;}),
+]
+
+function promiseAllProgress(proms, progress_callback) {
+
+    let d = 0;
+    progress_callback(d);
+
+    for (let prom of proms) {
+        prom.then(()=> {    
+        d++;
+        progress_callback((d * 100) / proms.length);
+      });
+    }
+
+    return Promise.all(proms).then(init);
+}
+
+function init() {
+
+    for (let i = 0; i < models.length; i++) {
+        models[i].name = "maquette";
+        models[i].caption = captions[i];
+        addShadows(models[i]);
     }
     
-    models[0].caption = "Maquette 0"
-    models[1].caption = "Variation 1"
-    
+    switchMaterial(materials[1]); 
     addModel(models[0]);
     updateCaption(models[0].caption)
     
@@ -88,6 +109,11 @@ Promise.all([p1,p2]).then(() => {
     
     animate();
     generateInterface();
+    discardOverlay();
+}
+
+promiseAllProgress(promises, (current_progress) => {
+    document.querySelector(".progress").style.width = `${current_progress * 0.9 + 10}%`
 });
 
 
@@ -119,8 +145,8 @@ const bindOrbit = () => {
         OFFSET = {x: loc.x, y: loc.y};
     }
     interfaces.orbit.move = function(loc) {
-        let deltaX = (loc.x - OFFSET.x)*0.004;
-        let deltaY = (loc.y - OFFSET.y)*0.004;
+        let deltaX = (loc.x - OFFSET.x) * 0.004;
+        let deltaY = (loc.y - OFFSET.y) * 0.004;
         scene.rotation.y += deltaX;
         scene.rotation.x += deltaY;
         OFFSET = {x: loc.x, y: loc.y};
@@ -175,6 +201,10 @@ function loadModel(url) {
     });
 }
 
+function discardOverlay() {
+ document.querySelector(".loading").style.display = "none";
+}
+
 function generateInterface() {
     bindInterface();
     displayInterface();
@@ -196,30 +226,21 @@ function updateCaption(caption) {
 }
 
 function switchMaterial(newMaterial) {
-    for (let a of models) {
-        a.traverse((node) => {
-            node.isMesh && (node.material = newMaterial);
-        });
+    for (let ma of materials) {
+        ma.dispose();
+        ma.isDisplayed = false;
     }
-    for (let b of materials) {
-        b.isDisplayed = false;
-    }
+    for (let mo of models) mo.traverse((node) => {node.isMesh && (node.material = newMaterial)});
     newMaterial.isDisplayed = true;
 }
 
 function addShadows(obj) {
-    obj.traverse((node) => {
-        node.isMesh && (node.castShadow = true);
-    });
+    obj.traverse((node) => {node.isMesh && (node.castShadow = true)});
 }
 
 function removeModel(model) {
     scene.remove(model);
-    model.traverse((node) => {
-        node.geometry?.dispose();
-        node.material?.dispose();
-        node.texture?.dispose();
-    });
+    model.traverse((node) => {node.geometry?.dispose();});
     model.isDisplayed = false;
 }
 
@@ -229,15 +250,24 @@ function addModel(model) {
 }
 
 
-
 // UTILS
 
-Array.prototype.carousel = function(id) {id >= this.length && (id = 0); id < 0 && (id = this.length-1); return this[id]};
+Array.prototype.carousel = function(id) {
+    id >= this.length && (id = 0); 
+    id < 0 && (id = this.length-1); 
+    return this[id]
+};
 
 THREE.Object3D.prototype.isDisplayed = false;
 THREE.Material.prototype.isDisplayed = false;
 
-document.addEventListener("contextmenu", e => {
-    e.preventDefault();
-}, false);
-    
+document.addEventListener("keydown", e => {
+    e.key === "a" &&
+    console.log(`programs: ${renderer.info.programs.length}
+    memory:
+    geometries: ${renderer.info.memory.geometries}
+    textures: ${renderer.info.memory.textures}`
+    )
+});
+
+document.addEventListener("contextmenu", e => {e.preventDefault();}, false);
