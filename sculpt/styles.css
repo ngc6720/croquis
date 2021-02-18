@@ -1,14 +1,19 @@
 :root {
     --ui: #F4E04B;
     --ui_light: #998e3e;
-    --darkgrey: #363636;
     --grey: #858585;
-    --lightgrey: #979797;
+    --grey_light: #979797;
   }
 
 @font-face {
     font-family: "Space Gro";
     src: url(./SpaceGrotesk.woff2) format("woff2");
+}
+
+@-moz-document url-prefix() {
+    .caption-wrap {
+        font-weight: lighter !important;
+    }
 }
 
 body {
@@ -25,16 +30,14 @@ body {
 
 canvas {display: block;}
 
-.interface {
-    display: none;
-}
+.interface {display: none;}
 
-.caption {
+.caption-wrap {
     font-family: "Space Gro";
-    font-size: 16px;
+    font-size: 20px;
     position: absolute;
-    left: 2vh;
-    bottom: 0;
+    left: 18vw;
+    bottom: 8vh;
     margin: 24px 16px;
     color: black;
 }
@@ -43,7 +46,7 @@ canvas {display: block;}
     display: flex;
     position: absolute;
     top: 0;
-    right: 4vh;
+    right: 4vw;
     justify-content: flex-end;
 }
 
@@ -56,11 +59,11 @@ canvas {display: block;}
 }
 
 .material:hover svg {
-    stroke:var(--ui_light);
+    stroke: var(--ui_light);
 }
 
 .sound:hover svg {
-    fill:var(--ui_light);
+    fill: var(--ui_light);
 }
 
 .sound {
@@ -103,20 +106,13 @@ canvas {display: block;}
     z-index: 3;
     padding: 8px;
     margin:2%;
-    fill: var(--ui);
     fill: var(--grey);
 }
 
-.arrow svg {
-    width: 6vh;
-}
-
-.arrow:hover, .arrow:active {
-    fill: var(--ui_light);
-    fill: var(--lightgrey);
+.arrow:hover {
+    fill: var(--grey_light);
     cursor: pointer;
 }
-
 
 @media only screen and (max-width: 1080px) {
     .arrow-wrap {
@@ -124,22 +120,24 @@ canvas {display: block;}
         justify-content: flex-end;
     }
     .arrow {
-        margin:8px;
+        margin: 8px;
     }
-    .arrow svg {
-        width: 8vh;
+    .caption-wrap {
+        left: 2vw;
+        bottom: 0;
+        margin-bottom:16px;
     }
 }
 
 @media only screen and (max-width: 940px) {
     .material,.sound {
-        margin:16px;
-        margin-left:0;
+        margin: 16px;
+        margin-left: 0;
+    }
+    .caption-wrap {
+        bottom: 0;
     }
     .buttons {
-        right:0;
-    }
-    .caption {
-        font-size: 16px;
+        right: 0;
     }
 }

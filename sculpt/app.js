@@ -7,7 +7,7 @@ import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js
 const cnv = document.getElementById('cnv');
 
 const ui = {
-    caption: document.querySelector(".caption"),
+    caption: document.querySelectorAll(".caption"),
     orbit: document.querySelector(".orbit"),
     arrows: document.querySelectorAll(".arrow"),
     material: document.querySelector(".material"),
@@ -68,11 +68,11 @@ materials[3] = new THREE.MeshNormalMaterial();
 let models = [];
 
 let captions = [
-    "model_0 : Version 0", 
-    "model_1 : Variation 1",
+    ["model_0", "Version 0"], 
+    ["model_1", "Variation 1"]
 ];
 
-let promises = [
+let promises = [    
     loadModel('models/model_0.glb').then(gltf => {models[0] = gltf.scene;}),
     loadModel('models/model_1.glb').then(gltf => {models[1] = gltf.scene;}),
 ]
@@ -218,11 +218,13 @@ function  bindInterface() {
 }
 
 function displayInterface() {
+    models.length < 2 && (document.querySelector(".arrow-wrap").style.display = "none");
     document.querySelector(".interface").style.display = "block";
 }
 
 function updateCaption(caption) {
-    ui.caption.innerHTML = caption;
+    ui.caption[0].innerHTML = caption[0];
+    ui.caption[1].innerHTML = caption[1];
 }
 
 function switchMaterial(newMaterial) {
@@ -230,17 +232,17 @@ function switchMaterial(newMaterial) {
         ma.dispose();
         ma.isDisplayed = false;
     }
-    for (let mo of models) mo.traverse((node) => {node.isMesh && (node.material = newMaterial)});
+    for (let mo of models) mo.traverse(node => {node.isMesh && (node.material = newMaterial)});
     newMaterial.isDisplayed = true;
 }
 
 function addShadows(obj) {
-    obj.traverse((node) => {node.isMesh && (node.castShadow = true)});
+    obj.traverse(node => {node.isMesh && (node.castShadow = true)});
 }
 
 function removeModel(model) {
     scene.remove(model);
-    model.traverse((node) => {node.geometry?.dispose();});
+    model.traverse(node => {node.geometry?.dispose();});
     model.isDisplayed = false;
 }
 
