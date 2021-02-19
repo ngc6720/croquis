@@ -69,13 +69,20 @@ let models = [];
 
 let captions = [
     ["model_0", "Version 0"], 
-    ["model_1", "Variation 1"]
+    ["model_1", "Variation 1"],
+    ["model_2", "Pieds 1"],
+    ["model_3", "Pieds 2"],
+    ["model_4", "Pieds 3"],
+    ["model_5", "Pieds 4"],
+    ["model_6", "Pieds 5"],
+    ["model_7", "Pieds 6"],
+    ["model_8", "Pieds 7"],
+    ["model_9", "Pieds 8"],
+    ["model_10", "Pieds 9"]
 ];
 
-let promises = [    
-    loadModel('models/model_0.glb').then(gltf => {models[0] = gltf.scene;}),
-    loadModel('models/model_1.glb').then(gltf => {models[1] = gltf.scene;}),
-]
+let promises = []
+for (let i = 0; i <= 10; i++) promises.push(loadModel(`models/model_${i}.glb`).then(gltf => {models[i] = gltf.scene;}));
 
 function promiseAllProgress(proms, progress_callback) {
 
@@ -223,6 +230,7 @@ function displayInterface() {
 }
 
 function updateCaption(caption) {
+    caption = caption || [];
     ui.caption[0].innerHTML = caption[0];
     ui.caption[1].innerHTML = caption[1];
 }
