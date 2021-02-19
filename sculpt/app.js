@@ -12,6 +12,7 @@ const ui = {
     arrows: document.querySelectorAll(".arrow"),
     material: document.querySelector(".material"),
     sound: document.querySelector(".sound"),
+    progress: document.querySelector(".progress")
 }
 
 const interfaces = {};
@@ -69,16 +70,16 @@ let models = [];
 
 let captions = [
     ["model_0", "Version 0"], 
-    ["model_1", "Variation 1"],
-    ["model_2", "Pieds 1"],
-    ["model_3", "Pieds 2"],
-    ["model_4", "Pieds 3"],
-    ["model_5", "Pieds 4"],
-    ["model_6", "Pieds 5"],
-    ["model_7", "Pieds 6"],
-    ["model_8", "Pieds 7"],
-    ["model_9", "Pieds 8"],
-    ["model_10", "Pieds 9"]
+    ["model_1", "Variation cuve"],
+    ["model_2", "Pieds - Barres 1"],
+    ["model_3", "Pieds - Barres 2"],
+    ["model_4", "Pieds - Barres 3"],
+    ["model_5", "Pieds - Barres 4"],
+    ["model_6", "Pieds - Tubulaires 1"],
+    ["model_7", "Pieds - Tubulaires 2"],
+    ["model_8", "Pieds - Tubulaires 3"],
+    ["model_9", "Pieds - Tubulaires 4"],
+    ["model_10", "Pieds - Droits"]
 ];
 
 let promises = []
@@ -98,6 +99,10 @@ function promiseAllProgress(proms, progress_callback) {
 
     return Promise.all(proms).then(init);
 }
+
+promiseAllProgress(promises, (current_progress) => {
+    ui.progress.style.width = `${Math.trunc(current_progress * 0.9 + 10)}%`
+});
 
 function init() {
 
@@ -119,16 +124,12 @@ function init() {
     discardOverlay();
 }
 
-promiseAllProgress(promises, (current_progress) => {
-    document.querySelector(".progress").style.width = `${current_progress * 0.9 + 10}%`
-});
-
 
 // LOOP
 
 function animate() {   
     requestAnimationFrame(animate);
-	render();
+    render();
 }
 
 function render() {
