@@ -79,11 +79,12 @@ let captions = [
     ["model_7", "Pieds - Tubulaires 2"],
     ["model_8", "Pieds - Tubulaires 3"],
     ["model_9", "Pieds - Tubulaires 4"],
-    ["model_10", "Pieds - Droits"]
+    ["model_10", "Pieds - Droits"],
+    ["model_11", "Version 0 + Pieds droits"]
 ];
 
 let promises = []
-for (let i = 0; i <= 10; i++) promises.push(loadModel(`models/model_${i}.glb`).then(gltf => {models[i] = gltf.scene;}));
+for (let i = 0; i <= 11; i++) promises.push(loadModel(`models/model_${i}.glb`).then(gltf => {models[i] = gltf.scene;}));
 
 function promiseAllProgress(proms, progress_callback) {
 
