@@ -58,33 +58,22 @@ scene.add(dirLight2);
 
 let materials = [];
 
-materials[0] = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe : true});
-materials[1] = new THREE.MeshLambertMaterial({color: 0xfffffe}); 
-materials[2] = new THREE.MeshPhongMaterial({color: 0x040404, specular: 0x222222, shininess: 20, flatShading : THREE.FlatShading}); 
-materials[3] = new THREE.MeshNormalMaterial();
+// materials[0] = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe : true});
+materials[0] = new THREE.MeshLambertMaterial({color: 0xfffffe}); 
+materials[1] = new THREE.MeshPhongMaterial({color: 0x040404, specular: 0x222222, shininess: 20, flatShading : THREE.FlatShading}); 
+materials[2] = new THREE.MeshNormalMaterial();
 
 
 // INIT
 
 let models = [];
-
+let numberOfModels = 1;
 let captions = [
-    ["model_0", "Version 0"], 
-    ["model_1", "Variation cuve"],
-    ["model_2", "Pieds - Barres 1"],
-    ["model_3", "Pieds - Barres 2"],
-    ["model_4", "Pieds - Barres 3"],
-    ["model_5", "Pieds - Barres 4"],
-    ["model_6", "Pieds - Tubulaires 1"],
-    ["model_7", "Pieds - Tubulaires 2"],
-    ["model_8", "Pieds - Tubulaires 3"],
-    ["model_9", "Pieds - Tubulaires 4"],
-    ["model_10", "Pieds - Droits"],
-    ["model_11", "Version 0 + Pieds droits"]
+    ["model_0", "Version 4"]
 ];
 
 let promises = []
-for (let i = 0; i <= 11; i++) promises.push(loadModel(`models/model_${i}.glb`).then(gltf => {models[i] = gltf.scene;}));
+for (let i = 0; i < numberOfModels; i++) promises.push(loadModel(`models/model_${i}.glb`).then(gltf => {models[i] = gltf.scene;}));
 
 function promiseAllProgress(proms, progress_callback) {
 
@@ -113,7 +102,7 @@ function init() {
         addShadows(models[i]);
     }
     
-    switchMaterial(materials[1]);
+    switchMaterial(materials[0]);
     addModel(models[0]);
     updateCaption(models[0].caption)
     
@@ -190,6 +179,16 @@ const bindSound = () => {
     };
 }
 
+const zoom =  function(e) {
+    e.preventDefault();
+    let scale = 1;
+    scale += e.deltaY * -0.01;
+    scale = e.deltaY / Math.abs(e.deltaY);
+    let newPos = camera.position.z + scale;
+    if (newPos > 6 && newPos < 24) {camera.position.z += scale};
+    
+} 
+window.onwheel = zoom;
 
 // AUDIO
 
